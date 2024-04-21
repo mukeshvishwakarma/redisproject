@@ -4,6 +4,7 @@ Before you begin, ensure you have the following installed:
 Python (3.8 or higher recommended)
 Django
 Redis
+pandas
 Setup Instructions
 
 Clone the Repository:
