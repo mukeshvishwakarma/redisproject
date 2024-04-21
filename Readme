@@ -1,0 +1,58 @@
+Prerequisites
+Before you begin, ensure you have the following installed:
+
+Python (3.8 or higher recommended)
+Django
+Redis
+Setup Instructions
+
+Clone the Repository:
+
+:-git clone https://github.com/yourusername/project-name.git
+cd project-name
+Install Dependencies:It's recommended to use a virtual environment to manage dependencies. Create and activate a virtual environment, then install the required packages using pip.
+
+
+
+:-python -m venv venv
+source venv/bin/activate  # For Unix/Linux
+venv\Scripts\activate      # For Windows
+
+pip install -r requirements.txt
+Set Up Redis:Ensure Redis is installed and running on your system. You can start the Redis server using:
+
+
+
+:-redis-server
+Apply Database Migrations:Apply migrations to set up the database schema.
+
+
+
+:-python manage.py migrate
+Load Excel Data into Redis:Run the custom management command to process and store Excel data into Redis.
+
+
+
+:-python manage.py process_excel_data
+This command reads data from data/path_to_excel.csv, sorts it by timestamp, and stores it in Redis.
+The Excel data file path (data/path_to_excel.csv) is configurable in the command implementation.
+The command reads the Excel data, sorts it based on timestamp (sts column), and stores the latest device information (latitude, longitude, timestamp) in Redis using hashes (hmset).
+Run the Django Development Server:Start the Django development server to serve the API endpoints.
+
+:-python manage.py runserver
+
+Access API Endpoints:Once the server is running, you can access the following API endpoints:
+Latest device information:
+
+:-GET http://localhost:8000/latest/{device_id}/
+
+Device start and end locations:
+:-GET http://localhost:8000/location/{device_id}/
+
+Device location points within a time range:
+:-GET http://localhost:8000/location/{device_id}/{start_time}/{end_time}/
+
+Additional Notes
+Ensure that the Redis configuration in settings.py matches your Redis server settings (REDIS_HOST, REDIS_PORT, REDIS_DB).
+Make sure to configure ALLOWED_HOSTS in settings.py for production use.
+Update any placeholders (e.g., project-name, yourusername, data/path_to_excel.csv) with your specific project details.
